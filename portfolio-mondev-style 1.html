@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MonChristian — Dev Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #1b1b1b;
+  --surface:  #292929;
+  --surface2: #323232;
+  --border:   #404040;
+  --orange:   #ff9000;
+  --orange2:  #ffb84d;
+  --text:     #f5f5f5;
+  --muted:    #9a9a9a;
+  --pill-bg:  #3d3d3d;
+  --radius:   6px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Nunito Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* TOPBAR */
+.topbar {
+  background: #000;
+  padding: 0 2rem;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  font-size: 12px;
+  color: var(--muted);
+  border-bottom: 1px solid #111;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+.topbar-links { display: flex; gap: 1.5rem; }
+.topbar-links a { color: var(--muted); text-decoration: none; font-size: 12px; transition: color .2s; }
+.topbar-links a:hover { color: var(--text); }
+
+/* HEADER */
+header {
+  background: #1a1a1a;
+  border-bottom: 3px solid var(--orange);
+  padding: 0 2rem;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 48px;
+  z-index: 199;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  font-size: 1.6rem;
+  font-weight: 900;
+  text-decoration: none;
+  letter-spacing: -0.03em;
+}
+.logo-white { color: var(--text); }
+.logo-pill {
+  background: var(--orange);
+  color: #000;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 900;
+}
+
+.header-nav { display: flex; gap: 0.25rem; }
+.header-nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius);
+  transition: background .2s, color .2s;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.header-nav a:hover { background: var(--surface2); color: var(--text); }
+
+.header-actions { display: flex; align-items: center; gap: 0.75rem; }
+.btn-login {
+  background: transparent;
+  border: 2px solid var(--border);
+  color: var(--text);
+  padding: 0.4rem 1.2rem;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color .2s;
+}
+.btn-login:hover { border-color: var(--muted); }
+.btn-join {
+  background: linear-gradient(135deg, var(--orange), #e07800);
+  color: #000;
+  border: none;
+  padding: 0.5rem 1.4rem;
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity .2s;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.btn-join:hover { opacity: 0.88; }
+
+/* HERO BANNER */
+.hero-banner {
+  background: linear-gradient(135deg, #0d0d0d 0%, #1f1f1f 50%, #111 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 3rem 2rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3rem;
+  max-width: 1280px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--orange);
+  color: #000;
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
+  border-radius: 3px;
+  margin-bottom: 1rem;
+}
+.hero-badge::before { content: '★'; }
+
+.hero-name {
+  font-size: clamp(2.5rem, 4vw, 4rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
+}
+.hero-name span { color: var(--orange); }
+
+.hero-handle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+.hero-bio {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.8;
+  max-width: 520px;
+  margin-bottom: 2rem;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 2.5rem;
+  margin-bottom: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+.hero-stat-val {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--orange);
+  display: block;
+  line-height: 1;
+}
+.hero-stat-label {
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 4px;
+  display: block;
+}
+
+.hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.btn-subscribe {
+  background: linear-gradient(135deg, var(--orange), #e07800);
+  color: #000;
+  border: none;
+  padding: 0.7rem 2rem;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  transition: opacity .2s;
+  display: inline-block;
+}
+.btn-subscribe:hover { opacity: 0.88; }
+.btn-message {
+  background: var(--surface2);
+  color: var(--text);
+  border: 2px solid var(--border);
+  padding: 0.7rem 2rem;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color .2s;
+  display: inline-block;
+}
+.btn-message:hover { border-color: var(--muted); }
+
+.hero-avatar {
+  width: 300px;
+  flex-shrink: 0;
+  position: relative;
+}
+.avatar-ring {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 4px solid var(--orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  font-size: 6rem;
+  font-weight: 900;
+  color: var(--orange);
+  letter-spacing: -0.05em;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 40px rgba(255,144,0,0.2);
+}
+.avatar-ring::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(255,144,0,0.15), transparent 60%);
+}
+.avatar-verified {
+  position: absolute;
+  bottom: 16px; right: 16px;
+  background: var(--orange);
+  color: #000;
+  font-size: 11px;
+  font-weight: 900;
+  padding: 4px 12px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* PAGE WRAP */
+.page-wrap { max-width: 1280px; margin: 0 auto; padding: 2rem; }
+
+/* FILTER BAR */
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.filter-label {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-right: 0.5rem;
+  font-weight: 700;
+}
+.pill {
+  background: var(--pill-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .2s, border-color .2s, color .2s;
+  text-decoration: none;
+}
+.pill:hover, .pill.active {
+  background: var(--orange);
+  color: #000;
+  border-color: var(--orange);
+}
+
+/* SECTION HEADING */
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.section-title::before {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 1.1em;
+  background: var(--orange);
+  border-radius: 2px;
+}
+.see-all {
+  font-size: 12px;
+  color: var(--orange);
+  text-decoration: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transition: opacity .2s;
+}
+.see-all:hover { opacity: 0.75; }
+
+/* PROJECT CARDS */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: border-color .25s, transform .25s, box-shadow .25s;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--text);
+  display: block;
+}
+.card:hover {
+  border-color: var(--orange);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(255,144,0,0.15);
+}
+
+.card-thumb {
+  aspect-ratio: 16/9;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card-thumb-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+}
+
+.card-c1 .card-thumb { background: linear-gradient(135deg, #0a1f14, #1a3a2a); }
+.card-c1 .card-thumb-inner { color: #4ade80; }
+.card-c2 .card-thumb { background: linear-gradient(135deg, #120d2e, #2d1b69); }
+.card-c2 .card-thumb-inner { color: #a78bfa; }
+.card-c3 .card-thumb { background: linear-gradient(135deg, #1a0a00, #3d1f00); }
+.card-c3 .card-thumb-inner { color: var(--orange); }
+.card-c4 .card-thumb { background: linear-gradient(135deg, #001220, #003459); }
+.card-c4 .card-thumb-inner { color: #38bdf8; }
+
+.card-badge {
+  position: absolute;
+  top: 8px; right: 8px;
+  background: var(--orange);
+  color: #000;
+  font-size: 9px;
+  font-weight: 900;
+  padding: 2px 7px;
+  border-radius: 3px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.card-type {
+  position: absolute;
+  bottom: 8px; right: 8px;
+  background: rgba(0,0,0,0.85);
+  color: var(--text);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.card-body { padding: 0.8rem; }
+.card-title {
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.35;
+  margin-bottom: 0.4rem;
+}
+.card-meta {
+  font-size: 12px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-channel { color: var(--orange); font-weight: 700; font-size: 12px; }
+.card-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
+.card-tag {
+  background: var(--pill-bg);
+  color: var(--muted);
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-family: 'JetBrains Mono', monospace;
+  border: 1px solid var(--border);
+}
+.rating-bar { height: 3px; background: var(--border); border-radius: 2px; margin-top: 8px; overflow: hidden; }
+.rating-fill { height: 100%; background: linear-gradient(90deg, var(--orange), var(--orange2)); border-radius: 2px; }
+
+/* SKILLS */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+.skill-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  transition: border-color .2s, transform .2s;
+}
+.skill-card:hover { border-color: var(--orange); transform: translateY(-2px); }
+.skill-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--orange);
+  margin-bottom: 0.5rem;
+}
+.skill-name {
+  font-size: 14px;
+  font-weight: 900;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.skill-bar { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; margin-bottom: 0.5rem; }
+.skill-fill { height: 100%; background: linear-gradient(90deg, var(--orange), var(--orange2)); border-radius: 2px; }
+.skill-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+/* PREMIUM BANNER */
+.premium-banner {
+  background: linear-gradient(135deg, #1a0f00, #2d1a00, #1a0f00);
+  border: 1px solid var(--orange);
+  border-radius: var(--radius);
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+  box-shadow: 0 0 30px rgba(255,144,0,0.1);
+}
+.premium-text h3 { font-size: 1.4rem; font-weight: 900; color: var(--orange); margin-bottom: 0.25rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.premium-text p { font-size: 13px; color: var(--muted); }
+.btn-premium {
+  background: linear-gradient(135deg, var(--orange), #e07800);
+  color: #000;
+  border: none;
+  padding: 0.8rem 2.5rem;
+  border-radius: var(--radius);
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: opacity .2s;
+  display: inline-block;
+}
+.btn-premium:hover { opacity: 0.88; }
+
+/* CONTACT + ABOUT */
+.about-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+.info-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.info-card-header {
+  background: var(--surface2);
+  padding: 0.75rem 1rem;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+}
+.info-card-header::before { content: ''; display: block; width: 3px; height: 1em; background: var(--orange); border-radius: 2px; }
+.contact-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  color: var(--text);
+  transition: background .2s;
+}
+.contact-row:last-child { border-bottom: none; }
+.contact-row:hover { background: var(--surface2); }
+.contact-row-left { display: flex; flex-direction: column; gap: 2px; }
+.contact-lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.contact-val { font-size: 14px; font-weight: 700; }
+.contact-arr { color: var(--orange); }
+
+/* FOOTER */
+footer {
+  background: #111;
+  border-top: 1px solid var(--border);
+  padding: 2rem;
+  text-align: center;
+}
+.footer-logo { font-size: 1.5rem; font-weight: 900; margin-bottom: 1rem; }
+.footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.25rem; margin-bottom: 1rem; }
+.footer-links a { font-size: 12px; color: var(--muted); text-decoration: none; transition: color .2s; }
+.footer-links a:hover { color: var(--text); }
+.footer-copy { font-size: 11px; color: #555; }
+
+/* ANIMATIONS */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .hero-banner { grid-template-columns: 1fr; }
+  .hero-avatar { display: none; }
+  .about-row { grid-template-columns: 1fr; }
+  header { padding: 0 1rem; }
+  .header-nav { display: none; }
+  .page-wrap { padding: 1.5rem 1rem; }
+  .hero-banner { padding: 2rem 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-links">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+    <a href="#">Blog</a>
+    <a href="#">Resume ↓</a>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <a href="#" class="logo">
+    <span class="logo-white">Mon</span><span class="logo-pill">Dev</span>
+  </a>
+  <nav class="header-nav">
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="header-actions">
+    <a href="#contact" class="btn-login">Message</a>
+    <a href="#contact" class="btn-join">Hire Me</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<div style="background:#111;border-bottom:1px solid var(--border);">
+  <div class="hero-banner">
+    <div>
+      <div class="hero-badge">Verified Developer</div>
+      <h1 class="hero-name">Mon Christian<br><span>Meriones</span></h1>
+      <p class="hero-handle">@monchristian · Full Stack Developer &amp; UI Designer</p>
+      <p class="hero-bio">Building digital products that feel as good as they look. Passionate about intentional design — every pixel, every line of code placed with purpose. Based in the Philippines, working globally.</p>
+      <div class="hero-stats">
+        <div>
+          <span class="hero-stat-val">3+</span>
+          <span class="hero-stat-label">Years Exp.</span>
+        </div>
+        <div>
+          <span class="hero-stat-val">20+</span>
+          <span class="hero-stat-label">Projects</span>
+        </div>
+        <div>
+          <span class="hero-stat-val">15+</span>
+          <span class="hero-stat-label">Clients</span>
+        </div>
+        <div>
+          <span class="hero-stat-val">∞</span>
+          <span class="hero-stat-label">Coffee</span>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <a href="#projects" class="btn-subscribe">View My Work</a>
+        <a href="#contact" class="btn-message">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-avatar">
+      <div class="avatar-ring">MCM</div>
+      <div class="avatar-verified">✓ Available</div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="page-wrap">
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar reveal" id="projects">
+    <span class="filter-label">Filter:</span>
+    <a href="#" class="pill active">All</a>
+    <a href="#" class="pill">Full Stack</a>
+    <a href="#" class="pill">UI/UX</a>
+    <a href="#" class="pill">Mobile</a>
+    <a href="#" class="pill">Data Viz</a>
+    <a href="#" class="pill">E-Commerce</a>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="section-heading reveal">
+    <h2 class="section-title">Selected Projects</h2>
+    <a href="#" class="see-all">View All →</a>
+  </div>
+
+  <div class="cards-grid reveal">
+    <div class="card card-c1">
+      <div class="card-thumb">
+        <div class="card-thumb-inner">α</div>
+        <span class="card-badge">LIVE</span>
+        <span class="card-type">Full Stack</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Project Alpha — Management Platform</div>
+        <div class="card-meta">
+          <span class="card-channel">Full Stack</span>
+          <span>2025</span>
+        </div>
+        <div class="card-tags">
+          <span class="card-tag">React</span>
+          <span class="card-tag">Node.js</span>
+          <span class="card-tag">PostgreSQL</span>
+          <span class="card-tag">REST API</span>
+        </div>
+        <div class="rating-bar"><div class="rating-fill" style="width:96%"></div></div>
+      </div>
+    </div>
+
+    <div class="card card-c2">
+      <div class="card-thumb">
+        <div class="card-thumb-inner">✦</div>
+        <span class="card-badge">NEW</span>
+        <span class="card-type">E-Commerce</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Luminary Shop — Elegant E-Commerce Storefront</div>
+        <div class="card-meta">
+          <span class="card-channel">Design + Dev</span>
+          <span>2024</span>
+        </div>
+        <div class="card-tags">
+          <span class="card-tag">Vue.js</span>
+          <span class="card-tag">Tailwind</span>
+          <span class="card-tag">Shopify</span>
+        </div>
+        <div class="rating-bar"><div class="rating-fill" style="width:91%"></div></div>
+      </div>
+    </div>
+
+    <div class="card card-c3">
+      <div class="card-thumb">
+        <div class="card-thumb-inner">◎</div>
+        <span class="card-badge">UX</span>
+        <span class="card-type">Mobile</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Tempo — Habit Tracker App (Mobile UI/UX)</div>
+        <div class="card-meta">
+          <span class="card-channel">Mobile</span>
+          <span>2024</span>
+        </div>
+        <div class="card-tags">
+          <span class="card-tag">Figma</span>
+          <span class="card-tag">React Native</span>
+          <span class="card-tag">Firebase</span>
+        </div>
+        <div class="rating-bar"><div class="rating-fill" style="width:88%"></div></div>
+      </div>
+    </div>
+
+    <div class="card card-c4">
+      <div class="card-thumb">
+        <div class="card-thumb-inner">◈</div>
+        <span class="card-badge">DATA</span>
+        <span class="card-type">Dashboard</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Insight Analytics — Data Visualization Dashboard</div>
+        <div class="card-meta">
+          <span class="card-channel">Data Viz</span>
+          <span>2023</span>
+        </div>
+        <div class="card-tags">
+          <span class="card-tag">D3.js</span>
+          <span class="card-tag">Express</span>
+          <span class="card-tag">MongoDB</span>
+        </div>
+        <div class="rating-bar"><div class="rating-fill" style="width:93%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PREMIUM BANNER -->
+  <div class="premium-banner reveal">
+    <div class="premium-text">
+      <h3>🔥 Available for Freelance</h3>
+      <p>Open to new projects, full-time roles, and collaborations. Don't miss out — let's build something great together.</p>
+    </div>
+    <a href="#contact" class="btn-premium">Get in Touch</a>
+  </div>
+
+  <!-- SKILLS -->
+  <div id="skills">
+    <div class="section-heading reveal">
+      <h2 class="section-title">Skills &amp; Expertise</h2>
+      <a href="#" class="see-all">All Skills →</a>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-card">
+        <div class="skill-num">01 /</div>
+        <div class="skill-name">Frontend Dev</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div>
+        <div class="skill-desc">Pixel-perfect, responsive interfaces with modern HTML, CSS &amp; JS frameworks.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-num">02 /</div>
+        <div class="skill-name">UI / UX Design</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+        <div class="skill-desc">Intuitive, aesthetically refined experiences from wireframes to polished product.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-num">03 /</div>
+        <div class="skill-name">Backend Systems</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+        <div class="skill-desc">Scalable, reliable server-side systems and APIs built for performance.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-num">04 /</div>
+        <div class="skill-name">React &amp; Vue</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:92%"></div></div>
+        <div class="skill-desc">Dynamic SPAs with component-driven architecture and clean state management.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-num">05 /</div>
+        <div class="skill-name">Database Design</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div>
+        <div class="skill-desc">Efficient data modeling across relational and NoSQL databases.</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-num">06 /</div>
+        <div class="skill-name">Creative Direction</div>
+        <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
+        <div class="skill-desc">Visual identity, typography &amp; design systems with a distinctive voice.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT + ABOUT -->
+  <div class="about-row reveal" id="contact">
+    <div class="info-card">
+      <div class="info-card-header">Get in Touch</div>
+      <a href="mailto:hello@monchristian.dev" class="contact-row">
+        <div class="contact-row-left">
+          <span class="contact-lbl">Email</span>
+          <span class="contact-val">hello@monchristian.dev</span>
+        </div>
+        <span class="contact-arr">→</span>
+      </a>
+      <a href="https://linkedin.com" target="_blank" class="contact-row">
+        <div class="contact-row-left">
+          <span class="contact-lbl">LinkedIn</span>
+          <span class="contact-val">Mon Christian Meriones</span>
+        </div>
+        <span class="contact-arr">→</span>
+      </a>
+      <a href="https://github.com" target="_blank" class="contact-row">
+        <div class="contact-row-left">
+          <span class="contact-lbl">GitHub</span>
+          <span class="contact-val">@monchristian</span>
+        </div>
+        <span class="contact-arr">→</span>
+      </a>
+      <a href="tel:+639000000000" class="contact-row">
+        <div class="contact-row-left">
+          <span class="contact-lbl">Phone</span>
+          <span class="contact-val">+63 900 000 0000</span>
+        </div>
+        <span class="contact-arr">→</span>
+      </a>
+    </div>
+
+    <div class="info-card" id="about">
+      <div class="info-card-header">About Me</div>
+      <div style="padding:1.25rem;font-size:14px;color:var(--muted);line-height:1.85;">
+        <p style="margin-bottom:1rem;">I am Mon Christian Meriones, a dedicated developer and designer with a deep passion for building products that feel as good as they look. I believe in the power of intentional design — every pixel, every line of code placed with purpose.</p>
+        <p style="margin-bottom:1rem;">Whether working on a sleek user interface, architecting a backend system, or collaborating with a team to ship a product, I bring curiosity, craft, and commitment to every project.</p>
+        <p style="color:var(--orange);font-weight:800;">📍 Based in the Philippines — Working Globally</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <span style="color:var(--text)">Mon</span><span style="background:var(--orange);color:#000;padding:2px 8px;border-radius:4px;font-weight:900;">Dev</span>
+  </div>
+  <div class="footer-links">
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <a href="#">Resume</a>
+    <a href="#">Blog</a>
+  </div>
+  <p class="footer-copy">© 2025 Mon Christian Meriones — All rights reserved</p>
+</footer>
+
+<script>
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+reveals.forEach(el => observer.observe(el));
+
+document.querySelectorAll('.pill').forEach(pill => {
+  pill.addEventListener('click', e => {
+    e.preventDefault();
+    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
